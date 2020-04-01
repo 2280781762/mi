@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小米列表</title>
+    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/list.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+</head>
+<body>
+    <div class="app">
+        <div class="header">
+            <div class="header-tpbar">
+                <div class="container">
+                    <div class="tpbar-nav">
+                        <a href="index.html">小米商城</a>
+                        <span class="sep">|</span>
+                        <a href="list.html">小米列表</a>
+                        <span class="sep">|</span>
+                        <a href="cart.html">小米购物车</a>
+                        <span class="sep">|</span>
+                        <a href="buy.html">小米支付</a>
+                        <span class="sep">|</span>
+                        <a href="product.html">小米详情</a>
+                        <span class="sep">|</span>
+                        <a href="#" class="tpbar-download">下载APP
+                            <span class="appcode">
+                                <img src="./picture/download.png" alt="小米商城" width="90px" height="90px">
+                                小米商城APP
+                            </span>
+                        </a>
+                        <span class="sep">|</span>
+                        <a href="#">ARE YOU OK</a>
+                        <span class="sep">|</span>
+                    </div>
+                    <div class="tpbar-cart">
+                        <a href="cart.html" class="cart-mini">
+                            <em class="iconfont-cart"></em>
+                            <em class="iconfont-cart-full hide"></em>
+                            购物车
+                        </a>
+                        <div class="cart-menu">
+                            <div class="msg">
+                                购物车中还没有商品，赶紧选购吧！
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mi-list">
+            <div class="container">
+                <center>
+                    <div class="page-header">
+                        <h1>列表页面 <small>小米商品</small></h1>
+                    </div>
+                </center>
+            
+                <!-- 添加列表 -->
+                <div class="container">
+                    <div class="row">
+            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="./js/page.js"></script>
+<script src="./js/promiseAjax.js"></script>
+<script>
+    //添加列表内容
+    pAjax({
+        url: "./server/list.php",
+        type: "get",
+    }).then(function (res) {
+
+        var total = res.length;
+        var pageSize = 8;
+
+        new Page({
+            pageData: {
+                total: total,
+                pageSize: pageSize
+            },
+            language: {
+                first: "首页",
+                previous: "上一页",
+                next: "下一页",
+                last: "尾页"
+            }
+        }, function (currentPage) {
+            var str = '';
+            var arr = res.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+            for (var i = 0; i < arr.length; i++) {
+                str += `
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <div class="thumbnail">
+                        <img src="${arr[i].imgpath}">
+                        <div class="caption">
+                            <h3>${arr[i].name}</h3>
+                            <p>${arr[i].introduce}</p>
+                            <p><a href="#" class="btn btn-primary"  role="button">查看详情</a></p>
+                        </div>
+                    </div>
+                </div>
+                `
+            }
+            document.querySelector(".container .row").innerHTML = str;
+        });
+    });
+</script>
+</html>
