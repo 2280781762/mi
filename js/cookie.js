@@ -3,12 +3,18 @@
  * @param {1} key 将要获取的cookie的键
  */
 function getCookie(key){
+    // 先获取所有cookie
     var cookies = document.cookie;
+    // 通过 ;  将所有cookie分割
     var arr = cookies.split("; ");
+    // 遍历这个数组 
     var length = arr.length;
     for(var i=0;i<length;i++){
+        // 通过 =  分割每一个元素
         var brr = arr[i].split("=");
+        // 判断第一个元素是否和key相等
         if(brr[0]===key){
+            // 将第二个元素返回
             return brr[1];
         }
     }

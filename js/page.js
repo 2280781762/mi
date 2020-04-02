@@ -124,7 +124,9 @@ Page.prototype.createPage = function(){
             this.setStyle(p,{
                 padding:"0 5px",
                 margin:"0 5px",
-                border:"1px solid #000"
+                border:"1px solid #000",
+                backgroundColor:"#fff",
+                borderRadius:"5px"
             });
             if(this.currentPage == i){
                 p.style.backgroundColor = "orange"
@@ -139,7 +141,9 @@ Page.prototype.createPage = function(){
                 this.setStyle(p,{
                     padding:"0 5px",
                     margin:"0 5px",
-                    border:"1px solid #000"
+                    border:"1px solid #000",
+                    backgroundColor:"#fff",
+                    borderRadius:"5px"
                 });
                 if(this.currentPage == i){
                     p.style.backgroundColor = "orange"
@@ -153,7 +157,9 @@ Page.prototype.createPage = function(){
                 this.setStyle(p,{
                     padding:"0 5px",
                     margin:"0 5px",
-                    border:"1px solid #000"
+                    border:"1px solid #000",
+                    backgroundColor:"#fff",
+                    borderRadius:"5px"
                 });
                 if(this.currentPage == i){
                     p.style.backgroundColor = "orange"
@@ -168,7 +174,9 @@ Page.prototype.createPage = function(){
                 this.setStyle(p,{
                     padding:"0 5px",
                     margin:"0 5px",
-                    border:"1px solid #000"
+                    border:"1px solid #000",
+                    backgroundColor:"#fff",
+                    borderRadius:"5px"
                 });
                 if(this.currentPage == i){
                     p.style.backgroundColor = "orange"
@@ -184,11 +192,11 @@ Page.prototype.createTag = function(){
     this.box = document.createElement("div");
     this.box.className = "box";
     this.setStyle(this.box,{
-        width:"800px",
-        height:"50px",
-        border:"1px solid #000",
+        width:"1000px",
+        height:"80px",
+        backgroundColor:"rgb(214, 214, 214)",
         display:"flex",
-        "justify-content":"center",
+        "justify-content":"space-around",
         alignItems:"center",
         "margin":"auto"
     });

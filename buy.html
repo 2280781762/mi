@@ -22,11 +22,11 @@
                         <span class="sep">|</span>
                         <a href="buy.html">小米支付</a>
                         <span class="sep">|</span>
-                        <a href="product.html">小米详情</a>
+                        <a href="detail.html">小米详情</a>
                         <span class="sep">|</span>
                         <a href="#" class="tpbar-download">下载APP
                             <span class="appcode">
-                                <img src="./picture/download.png" alt="小米商城" width="90px" height="90px">
+                                <img src="./pic/download.png" alt="小米商城" width="90px" height="90px">
                                 小米商城APP
                             </span>
                         </a>
@@ -45,6 +45,18 @@
                                 购物车中还没有商品，赶紧选购吧！
                             </div>
                         </div>
+                    </div>
+                    
+                    <div class="tpbar-info">
+                        <a class="link" href="login.html">登录</a>
+                        <span class="sep">|</span>
+                        <a class="link" href="register.html">注册</a>
+                    </div>
+                    <div class="tpbar-self">
+                        <span class="sep">|</span>
+                        <dpan href="javascript:;" class="link" id="infoSelf"></dpan>
+                        <span href="javascript:;" class="btn btn-primary btn-xs" id="logout">退出</span>
+                        <span class="sep">|</span>
                     </div>
                 </div>
             </div>
@@ -115,7 +127,7 @@
                         <p>8:00-18:00（仅收市话费）</p>
                         <p>人工客服:XXXX-XXXXXXXX</p>
                         <div class="follow">关注小米：<a href="#" class="wb"></a><a class="wx" href="#"></a> <img
-                                src="picture/wx-img.png">
+                                src="pic/wx-img.png">
                         </div>
                     </div>
                 </div>
@@ -172,16 +184,16 @@
                 </div>
                 <div class="info-links">
                     <a href="#">
-                        <img src="picture/truste.png" alt="TRUSTe Privacy Certification">
+                        <img src="pic/truste.png" alt="TRUSTe Privacy Certification">
                     </a>
                     <a href="#">
-                        <img src="picture/v-logo-2.png" alt="诚信网站">
+                        <img src="pic/v-logo-2.png" alt="诚信网站">
                     </a>
                     <a href="#">
-                        <img src="picture/v-logo-1.png" alt="可信网站">
+                        <img src="pic/v-logo-1.png" alt="可信网站">
                     </a>
                     <a href="#">
-                        <img src="picture/ba10428a4f9495ac310fd0b5e0cf8370.png" alt="诚信经营 放心消费">
+                        <img src="pic/ba10428a4f9495ac310fd0b5e0cf8370.png" alt="诚信经营 放心消费">
                     </a>
                 </div>
                 <div class="slogan"></div>
@@ -189,4 +201,25 @@
         </div>
     </div>
 </body>
+
+
+<script src="./js/promiseAjax.js"></script>
+<script src="./js/jquery-3.4.1.min.js"></script>
+<script src="./js/cookie.js"></script>
+
+<script>
+    var username = getCookie("username");
+    if(username){
+        $("#infoSelf").html(username+"用户");
+        $(".tpbar-info").css("display","none");
+        $(".tpbar-self").css("display","block");
+        $("#logout").click(function(){
+            removeCookie("username");
+            $(".tpbar-info").css("display","block");
+            $(".tpbar-self").css("display","none");
+        });
+    }else{
+        $(".tpbar-info").css("display","block");
+    }
+</script>
 </html>

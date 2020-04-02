@@ -24,7 +24,7 @@
                         <span class="sep">|</span>
                         <a href="buy.html">小米支付</a>
                         <span class="sep">|</span>
-                        <a href="product.html">小米详情</a>
+                        <a href="detail.html">小米详情</a>
                         <span class="sep">|</span>
                         <a href="#" class="tpbar-download">下载APP
                             <span class="appcode">
@@ -52,6 +52,12 @@
                         <a class="link" href="login.html">登录</a>
                         <span class="sep">|</span>
                         <a class="link" href="register.html">注册</a>
+                    </div>
+                    <div class="tpbar-self">
+                        <span class="sep">|</span>
+                        <dpan href="javascript:;" class="link" id="infoSelf"></dpan>
+                        <span href="javascript:;" class="btn btn-primary btn-xs" id="logout">退出</span>
+                        <span class="sep">|</span>
                     </div>
                 </div>
             </div>
@@ -103,7 +109,7 @@
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="请输入您想要的商品">
                             </div>
-                            <button type="submit" class="btn btn-default">搜索</button>
+                            <button type="submit" class="btn btn-warning">搜索</button>
                         </form>
                     </div>
 
@@ -340,6 +346,8 @@
 </body>
 
 <script src="./js/swiper.min.js"></script>
+<script src="./js/cookie.js"></script>
+<script src="./js/jquery-3.4.1.min.js"></script>
 <script>
     var mySwiper = new Swiper('.swiper-container', {
         loop: true, // 循环模式选项
@@ -357,5 +365,19 @@
         },
     })
 </script>
-
+<script>
+    var username = getCookie("username");
+    if(username){
+        $("#infoSelf").html(username+"用户");
+        $(".tpbar-info").css("display","none");
+        $(".tpbar-self").css("display","block");
+        $("#logout").click(function(){
+            removeCookie("username");
+            $(".tpbar-info").css("display","block");
+            $(".tpbar-self").css("display","none");
+        });
+    }else{
+        $(".tpbar-info").css("display","block");
+    }
+</script>
 </html>

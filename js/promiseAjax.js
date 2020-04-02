@@ -43,7 +43,7 @@ function sendAjax(obj){
             throw new Error("传入的数据类型不正确，只接受字符串或对象");
         }
     }
-    if(obj.url=="get"){
+    if(obj.type=="get"){
         obj.url += "?"+obj.data;
     }
     if(obj.async==undefined){
@@ -144,7 +144,7 @@ function pAjax(obj){
                 throw new Error("传入的数据类型不正确，只接受字符串或对象");
             }
         }
-        if(obj.url=="get"){
+        if(obj.type=="get"){
             obj.url += "?"+obj.data;
         }
         if(obj.async==undefined){
