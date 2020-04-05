@@ -136,6 +136,17 @@ summary {
   text-align: center;
   line-height: 100px;
   color: #ff6700;
+  display: block;
+}
+.header-tpbar .tpbar-cart .cart-menu .msg2 {
+  margin: 0 20px 20px;
+  text-align: center;
+  line-height: 100px;
+  color: #ff6700;
+  display: none;
+}
+.header-tpbar .tpbar-cart .cart-menu .msg2 .msg2-num {
+  color: black;
 }
 .header-tpbar .tpbar-cart:hover .cart-mini {
   color: #fff;
@@ -163,7 +174,6 @@ summary {
 .header-tpbar .tpbar-self {
   position: relative;
   float: right;
-  width: 140px;
   height: 40px;
   line-height: 40px;
   display: none;

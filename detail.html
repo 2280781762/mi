@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,9 @@
     <link rel="stylesheet" href="./css/home.css">
     <link rel="stylesheet" href="./css/detail.css">
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/swiper.min.css">
 </head>
+
 <body>
     <div class="app">
         <div class="header">
@@ -21,8 +24,6 @@
                         <a href="cart.html">小米购物车</a>
                         <span class="sep">|</span>
                         <a href="buy.html">小米支付</a>
-                        <span class="sep">|</span>
-                        <a href="detail.html">小米详情</a>
                         <span class="sep">|</span>
                         <a href="#" class="tpbar-download">下载APP
                             <span class="appcode">
@@ -44,6 +45,9 @@
                             <div class="msg">
                                 购物车中还没有商品，赶紧选购吧！
                             </div>
+                            <div class="msg2">
+                                您购物车里面的商品数为:<span class="msg2-num"></span>个
+                            </div>
                         </div>
                     </div>
                     <div class="tpbar-info">
@@ -60,38 +64,44 @@
                 </div>
             </div>
         </div>
-        <center><h3>产品详情页面</h3></center>
+        <center>
+            <h3>产品详情页面</h3>
+        </center>
         <div class="mi-product clearfix">
             <div class="container">
                 <div class="left">
-                    <div class="middle">
-                        <img alt="" id="middleImg">
+                    <div class="swiper-container gallery-top">
+                        <div class="swiper-wrapper">
+                        </div>
+                        <!-- Add Arrows -->
+                        <div class="swiper-button-next swiper-button-white"></div>
+                        <div class="swiper-button-prev swiper-button-white"></div>
                     </div>
-                    <div class="small">
-                        <ul>
-                        </ul>
+                    <div class="swiper-container gallery-thumbs">
+                        <div class="swiper-wrapper">
+                        </div>
                     </div>
-                </div>
-                <div class="bigger">
-                    <img alt=""><br>
                 </div>
                 <div class="info">
-                    <center><h3>购买信息</h3></center>
+                    <center>
+                        <h3>购买信息</h3>
+                    </center>
                     <p><b>商品名称：</b><span id="proName"></span></p>
                     <p><b>商品价格：</b><span id="proPrice"></span></p>
                     <p><b>颜色：</b><span id="proColor"></span></p>
                     <p><b>型号：</b><span id="proType"></span></p>
-                    <p><a href="javascript:;" class="btn btn-info" id="addCart">加入购物车</a><a href="buy.html" class="btn btn-info">立即购买</a></p>
-                </div>
-                <div class="right">
-                    <center><h3>商品详情</h3></center>
-                    <div id="introduce">
-
-                    </div>
+                    <p><a href="cart.html" class="btn btn-info" id="addCart">加入购物车</a><a href="buy.html"
+                            class="btn btn-info">立即购买</a></p>
                 </div>
             </div>
+            <div class="right">
+                <center>
+                    <h3>商品详情</h3>
+                </center>
+                <div id="introduce"></div>
+            </div>
         </div>
-        
+
         <div class="footer">
             <div class="footer-list">
                 <div class="footer-service">
@@ -231,100 +241,156 @@
 <script src="./js/promiseAjax.js"></script>
 <script src="./js/jquery-3.4.1.min.js"></script>
 <script src="./js/cookie.js"></script>
+<script src="./js/swiper.min.js"></script>
+<script>
+    var username = getCookie("username");
+    var proNum = getCookie("proNum");
+    if (username) {
+        $("#infoSelf").html(username + "用户");
+        $(".tpbar-info").css("display", "none");
+        $(".tpbar-self").css("display", "block");
+        $("#logout").click(function () {
+            removeCookie("username");
+            $(".tpbar-info").css("display", "block");
+            $(".tpbar-self").css("display", "none");
+            location.reload();
+        });
+        if (proNum) {
+            $(".msg").css("display", "none");
+            $(".msg2").css("display", "block");
+            $(".msg2-num").html(proNum);
+        } else {
+            $(".msg").css("display", "block");
+            $(".msg2").css("display", "none");
+        }
+    } else {
+        $(".tpbar-info").css("display", "block");
+    }
+</script>
 <script>
     var params = window.location.search;
     var reg = /id=(\d+)/;
     var id = params.match(reg)[1];
     pAjax({
-        url:"./server/detail.php",
-        type:"post",
-        data:{
-            id:id
+        url: "./server/detail.php",
+        type: "post",
+        data: {
+            id: id
         }
-    }).then(function(res){
-            var data = res.data;
-            $("#middleImg").attr("src",data.imgpath);
-            $("#middleImg").attr("src",data.imgpath);
-            $("#proName").text(data.name);
-            $("#proPrice").text(data.price);
-            $("#introduce").html(data.introduce);
-            var  lis = data.smallimg.split("====");
-            for(var i=0;i<lis.length;i++){
-                var li = $("<li><img src='"+lis[i]+"' width='50' height='50'></li>");
-                li.css("marginTop","5px");
-                $(".small ul").append(li);
-            }
-            var colors = data.color.split("====");
-            var bgcolors = data.bgcolor.split("====");
-            for(var i=0;i<colors.length;i++){
-                    var $span = $("<span class='btn'>"+colors[i]+"</span>");
-                    $span.css("backgroundColor",bgcolors[i]);
-                    $span.css("marginLeft","15px");
-                    $("#proColor").append($span);
-            }
-            var types = data.type.split("====");
-            for(var i=0;i<types.length;i++){
-                var $span = $("<span class='btn'>"+types[i]+"</span>");
-                    $span.css("border","1px solid #bdc3c7");
-                    $span.css("marginLeft","5px");
-                    $("#proType").append($span);
-            }
+    }).then(function (res) {
+        var data = res.data;
+
+        $("#proName").text(data.name);
+        $("#proPrice").text(data.price);
+        $("#introduce").html(data.introduce);
+        var lis = data.smallimg.split("====");
+        for (var i = 0; i < lis.length; i++) {
+            var str = '';
+            str = `
+                <div class="swiper-slide" style="background: url('${lis[i]}');"><a href="#"></a></div>
+            `;
+            $(".swiper-wrapper").append(str);
+            $(".swiper-wrapper").append(str);
+        }
+        var colors = data.color.split("====");
+        var bgcolors = data.bgcolor.split("====");
+        for (var i = 0; i < colors.length; i++) {
+            var $span = $("<span class='btn'>" + colors[i] + "</span>");
+            $span.css("backgroundColor", bgcolors[i]);
+            $span.css("marginLeft", "15px");
+            $("#proColor").append($span);
+        }
+        $checkColor = $("#proColor").children();
+        $checkColor.on("click", function (e) {
+            $(this).prevAll().attr("id", "");
+            $(this).nextAll().attr("id", "");
+            $(this).attr("id", "checkColor");
+        });
+        var types = data.type.split("====");
+        for (var i = 0; i < types.length; i++) {
+            var $span = $("<span class='btn'>" + types[i] + "</span>");
+            $span.css("border", "1px solid #bdc3c7");
+            $span.css("marginLeft", "5px");
+            $("#proType").append($span);
+        }
+        $checkType = $("#proType").children();
+        $checkType.on("click", function (e) {
+            $(this).prevAll().attr("id", "");
+            $(this).nextAll().attr("id", "");
+            $(this).attr("id", "checkType");
+        });
     });
 
-    $("#addCart").click(function(){
+    $("#addCart").click(function () {
         var username = getCookie("username");
-        if(!username){
+        if (!username) {
             alert("请先登录");
-            location.href="login.html";
+            location.href = "login.html";
             return false;
         }
-
-        var data= localStorage.getItem("data");
-        console.log(data);
-        if(data){
+        var checkType = $("#checkType").text();
+        var checkColor = $("#checkColor").text();
+        var data = localStorage.getItem("data");
+        if (!checkColor) {
+            alert("请选择手机颜色");
+            return false;
+        }
+        if (!checkType) {
+            alert("请选择手机型号");
+            return false;
+        }
+        if (data) {
             data = JSON.parse(data);
-            var index = data.findIndex(function(v){
-                return v.id == id ;
+            var index = data.findIndex(function (v) {
+                return v.id == id;
             });
-            if(index>=0){
+            if (index >= 0) {
                 data[index].number++;
-            }else{
+            } else {
                 var obj = {
-                    username:username,
-                    id:id,
-                    number:1
+                    username: username,
+                    id: id,
+                    number: 1,
+                    checkColor: checkType,
+                    checkType: checkColor
                 };
                 data.push(obj);
             }
-            localStorage.setItem("data",JSON.stringify(data));
-        }else{
+            localStorage.setItem("data", JSON.stringify(data));
+        } else {
             var data = [];
             var obj = {
-                    username:username,
-                    id:id,
-                    number:1
+                username: username,
+                id: id,
+                number: 1,
+                checkColor: checkType,
+                checkType: checkColor
             };
             data.push(obj);
-            localStorage.setItem("data",JSON.stringify(data));
+            localStorage.setItem("data", JSON.stringify(data));
         }
-
-        return false;
     });
-
 </script>
 <script>
-    var username = getCookie("username");
-    if(username){
-        $("#infoSelf").html(username+"用户");
-        $(".tpbar-info").css("display","none");
-        $(".tpbar-self").css("display","block");
-        $("#logout").click(function(){
-            removeCookie("username");
-            $(".tpbar-info").css("display","block");
-            $(".tpbar-self").css("display","none");
-        });
-    }else{
-        $(".tpbar-info").css("display","block");
-    }
+    var galleryThumbs = new Swiper('.gallery-thumbs', {
+        spaceBetween: 10,
+        slidesPerView: 5,
+        observer:true,
+        freeMode: true,
+        watchSlidesVisibility: true,
+        watchSlidesProgress: true,
+    });
+    var galleryTop = new Swiper('.gallery-top', {
+        spaceBetween: 10,
+        observer:true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        thumbs: {
+            swiper: galleryThumbs
+        }
+    });
 </script>
+
 </html>

@@ -28,8 +28,6 @@
                     <span class="sep">|</span>
                     <a href="buy.html">小米支付</a>
                     <span class="sep">|</span>
-                    <a href="detail.html">小米详情</a>
-                    <span class="sep">|</span>
                     <a href="#" class="tpbar-download">下载APP
                         <span class="appcode">
                             <img src="./pic/download.png" alt="小米商城" width="90px" height="90px">
@@ -48,79 +46,85 @@
         <div class="h1">登录页面</div>
     </center>
     <br>
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
-            <div class="col-sm-10">
-                <input type="email" class="form-control" id="username" placeholder="请输入用户名">
-            </div>
-        </div>
-        <br>
-        <div class="form-group">
-            <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
-            <div class="col-sm-10">
-                <input type="password" class="form-control" id="password" placeholder="请输入密码">
-            </div>
-        </div>
-        <br>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="remember"> 记住账号
-                    </label>
+    <div class="loginer">
+        <div class="container">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="username" placeholder="请输入用户名">
+                    </div>
                 </div>
-            </div>
+                <br>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="password" placeholder="请输入密码">
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="remember"> 记住账号
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" class="btn btn-default">登录</button>
+                        <a href="register.html">注册账号</a>
+                    </div>
+                </div>
+            </form>
         </div>
-        <br>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="button" class="btn btn-default">登录</button>
-                <a href="register.html">注册账号</a>
-            </div>
-        </div>
-    </form>
+    </div>
 </body>
 
-
+<script src="./js/jquery-3.4.1.min.js"></script>
 <script src="./js/promiseAjax.js"></script>
 <script src="./js/cookie.js"></script>
+<script src="./layer-master/src/layer.js"></script>
 <script>
     var u = document.querySelector("#username");
     var uname = getCookie("uname");
-    if(uname){
+    if (uname) {
         u.value = uname;
-    }else{
-        u.value  = "";
+    } else {
+        u.value = "";
     }
 
     var btn = document.querySelector("button[type='button']");
     btn.addEventListener('click', register);
+
     function register() {
         var rem = document.querySelector("[name='remember']")
         var username = document.querySelector("#username").value.trim();
         var password = document.querySelector("#password").value.trim();
 
         pAjax({
-            type:"post",
-            url:"./server/login.php",
-            data:{
-                username:username,
-                password:password
+            type: "post",
+            url: "./server/login.php",
+            data: {
+                username: username,
+                password: password
             }
-        }).then(function(res){
-            if(res.status==200){
+        }).then(function (res) {
+            if (res.status == 200) {
                 //先存cookie
-                setCookie("username",username,7200);
+                setCookie("username", username, 7200);
                 //看看是否记住用户名
-                if(rem.checked){
-                    setCookie("uname",username,3600*24*7);
-                }else{
+                if (rem.checked) {
+                    setCookie("uname", username, 3600 * 24 * 7);
+                } else {
                     removeCookie("uname");
                 }
                 location.href = "index.html";
-            }else{
-                alert(res.msg);
+            } else {
+                layer.msg(res.msg);  
                 return;
             }
         });

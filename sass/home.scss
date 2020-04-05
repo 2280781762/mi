@@ -146,7 +146,18 @@ summary {
                 text-align: center;
                 line-height: 100px;
                 color: #ff6700;
-}
+                display: block;
+            }
+            .msg2 {
+                margin: 0 20px 20px;
+                text-align: center;
+                line-height: 100px;
+                color: #ff6700;
+                display: none;
+                .msg2-num{
+                    color: black;
+                }
+            }
         }
     }
 
@@ -181,7 +192,6 @@ summary {
     .tpbar-self{
         position: relative;
         float: right;
-        width: 140px;
         height: 40px;
         line-height: 40px;
         display: none;

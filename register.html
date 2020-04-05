@@ -28,8 +28,6 @@
                     <span class="sep">|</span>
                     <a href="buy.html">小米支付</a>
                     <span class="sep">|</span>
-                    <a href="detail.html">小米详情</a>
-                    <span class="sep">|</span>
                     <a href="#" class="tpbar-download">下载APP
                         <span class="appcode">
                             <img src="./picture/download.png" alt="小米商城" width="90px" height="90px">
@@ -48,62 +46,68 @@
         <div class="h1">注册页面</div>
     </center>
     <br>
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
-            <div class="col-sm-10">
-                <input type="email" class="form-control" id="username" placeholder="请输入用户名">
-            </div>
-        </div>
-        <br>
-        <div class="form-group">
-            <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
-            <div class="col-sm-10">
-                <input type="password" class="form-control" id="password" placeholder="请输入密码">
-            </div>
-        </div>
-        <br>
-        <div class="form-group">
-            <label for="inputPassword3" class="col-sm-2 control-label">确认密码</label>
-            <div class="col-sm-10">
-                <input type="password" class="form-control" id="repassword" placeholder="请再次输入密码">
-            </div>
-        </div>
-        <br>
-        <div class="form-group">
-            <label for="inputPassword3" class="col-sm-2 control-label">电话</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="tel" placeholder="请输入电话号码">
-            </div>
-        </div>
-        <br>
-        <div class="form-group">
-            <label for="inputPassword3" class="col-sm-2 control-label">邮箱</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="email" placeholder="请输入邮箱账号">
-            </div>
-        </div>
-        <br>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name = "agree"> 同意协议
-                    </label>
+    <div class="rigist">
+        <div class="container">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="username" placeholder="请输入用户名">
+                    </div>
                 </div>
-            </div>
+                <br>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="password" placeholder="请输入密码">
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">确认密码</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="repassword" placeholder="请再次输入密码">
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">电话</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="tel" placeholder="请输入电话号码">
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">邮箱</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="email" placeholder="请输入邮箱账号">
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="agree"> 同意协议
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" class="btn btn-default">注册</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <br>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="button" class="btn btn-default">注册</button>
-            </div>
-        </div>
-    </form>
+    </div>
 </body>
 
 
 <script src="./js/promiseAjax.js"></script>
+<script src="./js/jquery-3.4.1.min.js"></script>
+<script src="./layer-master/src/layer.js"></script>
 <script>
     var btn = document.querySelector("button[type='button']");
     btn.addEventListener('click', register);
@@ -111,74 +115,74 @@
     function register() {
         //用户名验证
         var username = document.querySelector("#username").value.trim();
-        if(username == ""){
-            alert("用户名不能为空");
+        if (username == "") {
+            layer.msg("用户名不能为空");
             return;
         }
-        if(username.length<4 || username.length>12 ){
-            alert("用户名长度必须为4-13位");
+        if (username.length < 4 || username.length > 12) {
+            layer.msg("用户名长度必须为4-13位");
             return;
         }
         //密码验证
         var password = document.querySelector("#password").value.trim();
-        if(password == ""){
-            alert("密码不能为空");
+        if (password == "") {
+            layer.msg("密码不能为空");
             return;
         }
-        if(password.length<6 || password.length>14 ){
-            alert("密码长度必须为6-14位");
+        if (password.length < 6 || password.length > 14) {
+            layer.msg("密码长度必须为6-14位");
             return;
         }
         //密码再次确认
         var repassword = document.querySelector("#repassword").value.trim();
-        if (repassword != password){
-            alert("两次输入的密码不相同");
+        if (repassword != password) {
+            layer.msg("两次输入的密码不相同");
             return;
         }
         //电话验证
         var tel = document.querySelector("#tel").value.trim();
         var tReg = /^1[34578]\d{9}$/;
         if (tel == '') {
-            alert("手机号不能为空");
+            layer.msg("手机号不能为空");
             return;
         }
         if (!tReg.test(tel)) {
-            alert("请输入正确的手机号");
+            layer.msg("请输入正确的手机号");
             return;
         }
         //邮箱验证
-        var email= document.querySelector("#email").value.trim();
+        var email = document.querySelector("#email").value.trim();
         var eReg = /^\w{5,12}@(qq|163|126)\.(com|cn)$/;
         if (email == '') {
-            alert("邮箱号不能为空");
+            layer.msg("邮箱号不能为空");
             return;
         }
         if (!eReg.test(email)) {
-            alert("请输入正确的邮箱");
+            layer.msg("请输入正确的邮箱");
             return;
         }
         //协议判断
         var agree = document.querySelector("input[name='agree']");
-        if(!agree.checked){
-            alert("请同意协议");
+        if (!agree.checked) {
+            layer.msg("请同意协议");
             return;
         }
         //注册验证
         pAjax({
-            type:"post",
-            url:"./server/register.php",
-            data:{
-                username:username,
-                password:password,
-                tel:tel,
-                email:email
+            type: "post",
+            url: "./server/register.php",
+            data: {
+                username: username,
+                password: password,
+                tel: tel,
+                email: email
             }
-        }).then(function(res){
-            if(res.status == 200){
-                alert(res.msg);
+        }).then(function (res) {
+            if (res.status == 200) {
+                layer.msg(res.msg); 
                 location.href = "login.html";
-            }else{
-                alert(res.msg);
+            } else {
+                layer.msg(res.msg);
                 return;
             }
         });

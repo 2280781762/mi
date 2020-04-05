@@ -1,76 +1,72 @@
 .mi-product {
     height: 100%;
-    background-color: #fff;
-    position: relative;
+    background: #fff;
 
     .left,
-    .bigger,
-    .info,
-    .right {
-        width: 400px;
-        height: 400px;
+    .info{
+        width: 500px;
+        height: 500px;
         float: left;
-        margin: 40px 0px;
+        margin: 40px 50px;
     }
 
     .left {
-        margin-right: 40px;
-
-        .middle {
-            width: 400px;
-            height: 300px;
-            margin: 0 auto;
-
-            img {
-                width: 300px;
-                height: 300px;
-                margin-left: 50px;
-            }
-        }
-
-        .shade {
-            width: 100px;
-            height: 100px;
-            background: rgba(255, 255, 0, 0.5);
-            position: absolute;
-            left: 0;
-            top: 0;
-            display: none;
-        }
-
-        .small {
-            width: 400px;
-            height: 100px;
-            overflow: hidden;
-
-            li {
-                float: left;
-                margin-left: 20px;
-            }
-
-            img {
-                width: 80px;
-                height: 80px;
-            }
-        }
-
-
-    }
-
-    .bigger {
+        position: relative;
         width: 400px;
-        height: 400px;
-        margin-left: 150px;
-        border: 2px solid #dfe6e9;
-        img {
+        height: 500px;
+        border: 2px solid #b2bec3;
+
+        .swiper-container {
             width: 100%;
+            height: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .swiper-slide {
+            background-size: cover !important;
+            background-position: center;
+            a{
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .gallery-top {
+            height: 80%;
+            width: 100%;
+        }
+
+        .gallery-thumbs {
+            height: 100px;
+            box-sizing: border-box;
+            padding: 10px 0;
+        }
+
+        .gallery-thumbs .swiper-slide {
+            width: 20%;
             height: 100%;
+            background-size: cover;
+            opacity: 0.4;
+        }
+
+        .gallery-thumbs .swiper-slide-thumb-active {
+            opacity: 1;
         }
     }
+
 
     .info {
         border: 2px solid #b2bec3;
         padding: 0px 40px;
+
+        #checkColor {
+            border: 2px solid #000000 !important;
+        }
+
+        #checkType {
+            border: 2px solid #000000 !important;
+        }
 
         p {
             line-height: 40px;
@@ -83,6 +79,8 @@
     }
 
     .right {
-        margin-left: 100px;
+        width: 1226px;
+        height: 200px;
+        margin: 0 auto;
     }
 }

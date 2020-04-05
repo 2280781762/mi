@@ -1,4 +1,110 @@
-.mi-buy{
+.mi-buy {
+    height: 650px;
+    background: url(../images/bg-banner2.jpg);
+    display: none;
+
+    h2 {
+        margin-top: 0px;
+        line-height: 50px;
+        font-weight: 600;
+        color: #3d3d3d;
+    }
+
+    #cart-no {
+        display: block;
+        font-weight: 500;
+        font-size: 18px;
+        text-indent: 36px;
+    }
+
+    #cart-buy {
+        display: block;
+        p{
+            text-align: center;
+            font-size: 18px;
+            font-weight: 500;
+            color: #000;
+        }
+        .buyType {
+            height: 430px;
+            width: 500px;
+            border: 1px solid #000;
+            margin: 0 auto;
+            overflow: hidden;
+            cursor: pointer;
+
+            ul,
+            ol {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                width: 500px;
+            }
+
+            ul {
+                height: 30px;
+                background: #ccc;
+                line-height: 30px;
+                display: flex;
+                justify-content: space-evenly;
+                color: #fff;
+
+                li {
+                    float: left;
+                    width: 150px;
+                    background: #0f0;
+                    text-align: center;
+                }
+
+                li.active {
+                    background: #999;
+                    display: block;
+                }
+            }
+
+            ol {
+                height: 400px;
+                li {
+                    height: 100%;
+                    display: none;
+                    img {
+                        width: 500px;
+                        height: 100%;
+                    }
+                }
+                li.active {
+                    display: block;
+                }
+            }
+        }
+
+    }
+}
+
+.mi-login {
     height: 500px;
-    background-color: #fff;
+    background: url(../images/bg-banner.png);
+    position: relative;
+
+    .container {
+        width: 400px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+
+        a {
+            width: 180px;
+        }
+    }
+
+    h2 {
+        margin-top: 0px;
+        line-height: 200px;
+        font-weight: 600;
+        color: #f39c12;
+    }
 }
