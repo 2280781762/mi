@@ -34,13 +34,17 @@ Page.prototype.createGo = function(){
     this.setStyle(input,{
         width:"50px",
         height:"18px",
-        margin:"0 5px"
+        margin:"0 5px",
+        "border-radius":"15px",
+        "text-align":"center"
     });
     var btn = document.createElement("button");
-    btn.innerText = "GO"
+    btn.innerText = "跳转";
+    btn.className = "btn btn-default";
     this.setStyle(btn,{
         height:"24px",
-        margin:"0 5px"
+        margin:"0 5px",
+        "line-height":"14px",
     });
     this.box.appendChild(btn);
 }
@@ -121,15 +125,16 @@ Page.prototype.createPage = function(){
         for(var i=1;i<=this.totalPage;i++){
             var p = document.createElement("p");
             p.innerText = i;
+            p.className = "btn btn-default";
             this.setStyle(p,{
                 padding:"0 5px",
                 margin:"0 5px",
-                border:"1px solid #000",
+                border:"1px solid #333",
                 backgroundColor:"#fff",
                 borderRadius:"5px"
             });
             if(this.currentPage == i){
-                p.style.backgroundColor = "orange"
+                p.style.backgroundColor = "#dcdde1"
             }
             this.list.appendChild(p);
         }
@@ -138,15 +143,16 @@ Page.prototype.createPage = function(){
             for(var i=1;i<=5;i++){
                 var p = document.createElement("p");
                 p.innerText = i;
+                p.className = "btn btn-default";
                 this.setStyle(p,{
                     padding:"0 5px",
                     margin:"0 5px",
-                    border:"1px solid #000",
+                    border:"1px solid #333",
                     backgroundColor:"#fff",
                     borderRadius:"5px"
                 });
                 if(this.currentPage == i){
-                    p.style.backgroundColor = "orange"
+                    p.style.backgroundColor = "#dcdde1"
                 }
                 this.list.appendChild(p);
             }
@@ -154,15 +160,16 @@ Page.prototype.createPage = function(){
             for(var i=this.totalPage-4;i<=this.totalPage;i++){
                 var p = document.createElement("p");
                 p.innerText = i;
+                p.className = "btn btn-default";
                 this.setStyle(p,{
                     padding:"0 5px",
                     margin:"0 5px",
-                    border:"1px solid #000",
+                    border:"1px solid #333",
                     backgroundColor:"#fff",
                     borderRadius:"5px"
                 });
                 if(this.currentPage == i){
-                    p.style.backgroundColor = "orange"
+                    p.style.backgroundColor = "#dcdde1"
                 }
                 this.list.appendChild(p);
             }
@@ -171,15 +178,16 @@ Page.prototype.createPage = function(){
             for(var i=this.currentPage-2;i<=this.currentPage+2;i++){
                 var p = document.createElement("p");
                 p.innerText = i;
+                p.className = "btn btn-default";
                 this.setStyle(p,{
                     padding:"0 5px",
                     margin:"0 5px",
-                    border:"1px solid #000",
+                    border:"1px solid #333",
                     backgroundColor:"#fff",
                     borderRadius:"5px"
                 });
                 if(this.currentPage == i){
-                    p.style.backgroundColor = "orange"
+                    p.style.backgroundColor = "#dcdde1"
                 }
                 this.list.appendChild(p);
             }
@@ -192,13 +200,15 @@ Page.prototype.createTag = function(){
     this.box = document.createElement("div");
     this.box.className = "box";
     this.setStyle(this.box,{
-        width:"1000px",
+        width:"1333px",
         height:"80px",
-        backgroundColor:"rgb(214, 214, 214)",
+        backgroundColor:"#fff",
         display:"flex",
-        "justify-content":"space-around",
+        "justify-content":"center",
         alignItems:"center",
-        "margin":"auto"
+        "margin":"auto",
+        "border":"1px solid #b2bec3",
+        "border-radius":"15px"
     });
     document.body.appendChild(this.box);
     for(var attr in this.default.language){
@@ -207,9 +217,12 @@ Page.prototype.createTag = function(){
         div.className = attr;
         if(attr != "list"){
             this.setStyle(div,{
-                padding:"0 5px",
-                margin:"0 5px",
-                border:"1px solid #000"
+                padding:"0 25px",
+                margin:"0 15px",
+                "border-radius":"15px",
+                "cursor":"pointer",
+                "font-size":"14px",
+                border:"1px solid #ccc"
             });
         }else{
             this.list = div; // 将div赋值给list

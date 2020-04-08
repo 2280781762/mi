@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>注册</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./layui-master/src/css/modules/layer/default/layer.css">
     <link rel="stylesheet" href="./css/home.css">
     <style>
         .form-horizontal .form-group {
@@ -107,11 +108,11 @@
 
 <script src="./js/promiseAjax.js"></script>
 <script src="./js/jquery-3.4.1.min.js"></script>
-<script src="./layer-master/src/layer.js"></script>
+<script src="./layui-master/src/lay/modules/layer.js"></script>
 <script>
     var btn = document.querySelector("button[type='button']");
     btn.addEventListener('click', register);
-
+    
     function register() {
         //用户名验证
         var username = document.querySelector("#username").value.trim();

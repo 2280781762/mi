@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./css/home.css">
     <link rel="stylesheet" href="./css/list.css">
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./layui-master/src/css/layui.css">
 </head>
 
 <body>
@@ -74,8 +75,11 @@
 
                 <!-- 添加列表 -->
                 <div class="container">
+                    <div id="fenye"></div>
                     <div class="row">
+                        <div id="pro-list">
 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -87,14 +91,14 @@
 <script src="./js/promiseAjax.js"></script>
 <script src="./js/jquery-3.4.1.min.js"></script>
 <script src="./js/cookie.js"></script>
+<script src="./layui-master/src/layui.js"></script>
 <script>
-    //添加列表内容
+    // 添加列表内容
     pAjax({
         url: "./server/list.php",
         type: "get",
     }).then(
         function (res) {
-        console.log(res)
         var total = res.length;
         var pageSize = 4;
 
@@ -130,10 +134,57 @@
         });
 
     });
-</script>
+//     $.ajax({
+//         url: "./server/list.php",
+//         type: "post",
+//         dataType: "json",
+//         success: function (res) {
+//             var data = res;
+//             layui.use('laypage','element', function () {
+//                 var laypage = layui.laypage ,element = layui.element;
+//                 var nums = 4;
+//                 element.on('tab(demo)', function(data){
+//                     layer.tips('切换了 '+ data.index +'：'+ this.innerHTML, this, {
+//                     tips: 1
+//                     });
+//                 });
+//                 var render = function (data, curr) {
+//                     var item = '';
+//                     var arr = '';
+//                     var arr = data.slice(curr * nums - nums, nums);
+//                     console.log(arr);
+//                     console.log(curr);
+//                     for (var i = 0; i < arr.length; i++) {
+//                         item += `
+//                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+//                             <div class="thumbnail">
+//                                 <img src="${arr[i].imgpath}">
+//                                 <div class="caption">
+//                                     <h3>${arr[i].name}</h3>
+//                                     <p>${arr[i].introduce}</p>
+//                                     <p><a href="detail.html?id=${arr[i].id}" class="btn btn-primary"  role="button">查看详情</a></p>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                         `
+//                     }
+//                     return $("#pro-list").append(item);
+//                 };
+//                 laypage.render({
+//                     elem: 'fenye' //分页容器的id
+//                     ,count: data.length //总页数
+//                     ,skin: '#1E9FFF' //自定义选中色值
+//                     ,skip: true //开启跳页
+//                     ,jump: function(obj, first){
+//                         $('#pro-list').innerHTML = render(data, obj.curr);
+//                     }
+//                 });
+//             });
+//         }
+//     });
+// </script>
 <script>
     var username = getCookie("username");
-    var proNum = getCookie("proNum");
     if (username) {
         $("#infoSelf").html(username + "用户");
         $(".tpbar-info").css("display", "none");
@@ -144,13 +195,21 @@
             $(".tpbar-self").css("display", "none");
             location.reload();
         });
-        if(proNum){
-            $(".msg").css("display","none");
-            $(".msg2").css("display","block");
-            $(".msg2-num").html(proNum);
-        }else{
-            $(".msg").css("display","block");
-            $(".msg2").css("display","none");
+        var data = localStorage.getItem("data");
+        if (data) {
+            $(".msg").css("display", "none");
+            $(".msg2").css("display", "block");
+            data = JSON.parse(data);
+            var numArr = data.map(function(v){
+                return v.number
+            });
+            var sum = numArr.reduce(function(a,b){
+                return a+b;
+            });
+            $(".msg2-num").html(sum);
+        } else {
+            $(".msg").css("display", "block");
+            $(".msg2").css("display", "none");
         }
     } else {
         $(".tpbar-info").css("display", "block");

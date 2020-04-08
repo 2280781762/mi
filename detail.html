@@ -244,7 +244,6 @@
 <script src="./js/swiper.min.js"></script>
 <script>
     var username = getCookie("username");
-    var proNum = getCookie("proNum");
     if (username) {
         $("#infoSelf").html(username + "用户");
         $(".tpbar-info").css("display", "none");
@@ -255,10 +254,18 @@
             $(".tpbar-self").css("display", "none");
             location.reload();
         });
-        if (proNum) {
+        var data = localStorage.getItem("data");
+        if (data) {
             $(".msg").css("display", "none");
             $(".msg2").css("display", "block");
-            $(".msg2-num").html(proNum);
+            data = JSON.parse(data);
+            var numArr = data.map(function(v){
+                return v.number
+            });
+            var sum = numArr.reduce(function(a,b){
+                return a+b;
+            });
+            $(".msg2-num").html(sum);
         } else {
             $(".msg").css("display", "block");
             $(".msg2").css("display", "none");
