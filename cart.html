@@ -247,6 +247,8 @@
         $("#infoSelf").html(username + "用户");
         $(".tpbar-info").css("display", "none");
         $(".tpbar-self").css("display", "block");
+        $(".mi-login").css("display", "none");
+        $(".mi-cart").css("display", "block");
         $("#logout").click(function () {
             removeCookie("username");
             $(".tpbar-info").css("display", "block");
@@ -271,6 +273,8 @@
         }
     } else {
         $(".tpbar-info").css("display", "block");
+        $(".mi-login").css("display", "block");
+        $(".mi-cart").css("display", "none");
     }
     /*提取浏览器储存数据*/
     var data = localStorage.getItem("data");

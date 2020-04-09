@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,9 @@
     <link rel="stylesheet" href="./css/home.css">
     <link rel="stylesheet" href="./css/buy.css">
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./layui-master/src/css/layui.css">
 </head>
+
 <body>
     <div class="app">
         <div class="header">
@@ -32,7 +35,7 @@
                         <a href="#">ARE YOU OK</a>
                         <span class="sep">|</span>
                     </div>
-                    
+
                     <div class="tpbar-info">
                         <a class="link" href="login.html">登录</a>
                         <span class="sep">|</span>
@@ -48,35 +51,41 @@
             </div>
         </div>
         <div class="mi-buy">
-            <center><h2>支付页面</h2></center>
+            <center>
+                <h2>支付页面</h2>
+            </center>
             <div class="container" id="content">
                 <p id="cart-no">您未选择需要支付的商品,请来<a href='cart.html'>小米购物车</a>挑选你需要购买的商品吧！</p>
-                <div id="cart-buy">
-                    <p>你需要支付<span class="money"></span>元！</p>
-                    <div class="buyType">
-                        <ul>
-                            <li class="active">qq支付</li>
+                    <div class="layui-tab layui-tab-card" lay-allowclose="true">
+                        <ul class="layui-tab-title">
+                            <li class="layui-this">qq支付</li>
                             <li>微信支付</li>
                             <li>支付宝支付</li>
+                            <li>银行卡支付</li>
+                            <li>小米借钱支付</li>
                         </ul>
-                        <ol>
-                            <li class="active"><img src="./pic/qq-buy.jpg"></li>
-                            <li><img src="./pic/wx-buy.jpg"></li>
-                            <li><img src="./pic/zfb-buy.jpg"></li>
-                        </ol>
+                        <div class="layui-tab-content" style="height: 520px;">
+                            <div class="layui-tab-item layui-show" style="height: 500px;background: url(./pic/qq-buy.jpg) no-repeat;background-size: 500px;"></div>
+                            <div class="layui-tab-item" style="height: 500px;background: url(./pic/wx-buy.jpg) no-repeat;background-size: 500px;"></div>
+                            <div class="layui-tab-item" style="height: 500px;background: url(./pic/zfb-buy.jpg) no-repeat;background-size: 500px;"></div>
+                            <div class="layui-tab-item" style="height: 500px;background: url(./pic/qq-buy.jpg) no-repeat;background-size: 500px;"></div>
+                            <div class="layui-tab-item" style="height: 500px;background: url(./pic/wx-buy.jpg) no-repeat;background-size: 500px;"></div>
+                            <div class="layui-tab-item" style="height: 500px;background: url(./pic/zfb-buy.jpg) no-repeat;background-size: 500px;"></div>
+                        </div>
                     </div>
-                    
                 </div>
             </div>
         </div>
         <div class="mi-login">
-            <center><h2>请先登录</h2></center>
+            <center>
+                <h2>请先登录</h2>
+            </center>
             <div class="container">
                 <a href="login.html" class="btn btn-primary btn-lg">登录</a>
                 <a href="register.html" class="btn btn-primary btn-lg">注册</a>
             </div>
         </div>
-        
+
         <div class="footer">
             <div class="footer-list">
                 <div class="footer-service">
@@ -217,30 +226,39 @@
 <script src="./js/promiseAjax.js"></script>
 <script src="./js/jquery-3.4.1.min.js"></script>
 <script src="./js/cookie.js"></script>
-
+<script src="./layui-master/src/layui.js"></script>
 <script>
-    var allprice= getCookie("allprice");
+    var allprice = getCookie("allprice");
     var username = getCookie("username");
     if (username) {
         $("#infoSelf").html(username + "用户");
         $(".tpbar-info").css("display", "none");
         $(".tpbar-self").css("display", "block");
+        $(".mi-login").css("display", "none");
+        $(".mi-buy").css("display", "block");
         $("#logout").click(function () {
             removeCookie("username");
             $(".tpbar-info").css("display", "block");
             $(".tpbar-self").css("display", "none");
             location.reload();
         });
+        if (allprice) {
+            $("#cart-no").css("display", "none");
+            $("#cart-buy").css("display", "block");
+        } else {
+            $("#cart-no").css("display", "block");
+            $("#cart-buy").css("display", "none");
+        }
         var data = localStorage.getItem("data");
         if (data) {
             $(".msg").css("display", "none");
             $(".msg2").css("display", "block");
             data = JSON.parse(data);
-            var numArr = data.map(function(v){
+            var numArr = data.map(function (v) {
                 return v.number
             });
-            var sum = numArr.reduce(function(a,b){
-                return a+b;
+            var sum = numArr.reduce(function (a, b) {
+                return a + b;
             });
             $(".msg2-num").html(sum);
         } else {
@@ -249,21 +267,69 @@
         }
     } else {
         $(".tpbar-info").css("display", "block");
+        $(".mi-login").css("display", "block");
+        $(".mi-buy").css("display", "none");
     }
     $(".money").text(allprice);
 
-    $(".buyType ul li").click(function(){
+    $(".buyType ul li").click(function () {
         $(this)
-        .addClass("active") 
-        .siblings()
-        .removeClass("active")
-        .parent()
-        .next()
-        .children() 
-        .eq($(this).index())
-        .addClass("active")
-        .siblings()
-        .removeClass("active");
+            .addClass("active")
+            .siblings()
+            .removeClass("active")
+            .parent()
+            .next()
+            .children()
+            .eq($(this).index())
+            .addClass("active")
+            .siblings()
+            .removeClass("active");
     });
 </script>
+<script>
+    layui.use('element', function () {
+        var $ = layui.jquery,
+            element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+        //触发事件
+        var active = {
+            tabAdd: function () {
+                //新增一个Tab项
+                element.tabAdd('demo', {
+                    title: '新选项' + (Math.random() * 1000 | 0) //用于演示
+                        ,
+                    content: '内容' + (Math.random() * 1000 | 0),
+                    id: new Date().getTime() //实际使用一般是规定好的id，这里以时间戳模拟下
+                })
+            },
+            tabDelete: function (othis) {
+                //删除指定Tab项
+                element.tabDelete('demo', '44'); //删除：“商品管理”
+
+
+                othis.addClass('layui-btn-disabled');
+            },
+            tabChange: function () {
+                //切换到指定Tab项
+                element.tabChange('demo', '22'); //切换到：用户管理
+            }
+        };
+
+        $('.site-demo-active').on('click', function () {
+            var othis = $(this),
+                type = othis.data('type');
+            active[type] ? active[type].call(this, othis) : '';
+        });
+
+        //Hash地址的定位
+        var layid = location.hash.replace(/^#test=/, '');
+        element.tabChange('test', layid);
+
+        element.on('tab(test)', function (elem) {
+            location.hash = 'test=' + $(this).attr('lay-id');
+        });
+
+    });
+</script>
+
 </html>

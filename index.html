@@ -370,11 +370,11 @@
             $(".msg").css("display", "none");
             $(".msg2").css("display", "block");
             data = JSON.parse(data);
-            var numArr = data.map(function(v){
+            var numArr = data.map(function (v) {
                 return v.number
             });
-            var sum = numArr.reduce(function(a,b){
-                return a+b;
+            var sum = numArr.reduce(function (a, b) {
+                return a + b;
             });
             $(".msg2-num").html(sum);
         } else {
@@ -385,5 +385,4 @@
         $(".tpbar-info").css("display", "block");
     }
 </script>
-
 </html>

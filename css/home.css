@@ -29,6 +29,7 @@ summary {
 
 .header {
   height: 100%;
+  position: relative;
 }
 
 .header-tpbar {
